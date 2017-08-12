@@ -2,8 +2,10 @@
   "name": "tsil",
   "version": "1.0.0",
   "description": "Flatten and deflatten objects. Work with lists 📝",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
+    "pre:publish": "npm run build",
+    "build": "babel lib --out-dir dist --presets=env",
     "pre:test": "standard",
     "test": "nyc ava test/tsil.spec.js"
   },
@@ -26,11 +28,13 @@
     "url": "https://github.com/sospedra/tsil/issues"
   },
   "homepage": "https://github.com/sospedra/tsil#readme",
-  "dependencies": {
+  "peerDependencies": {
     "lodash": "^4.17.4"
   },
   "devDependencies": {
     "ava": "^0.21.0",
+    "babel-cli": "^6.24.1",
+    "babel-preset-env": "^1.6.0",
     "nyc": "^11.1.0",
     "standard": "^10.0.3"
   }
