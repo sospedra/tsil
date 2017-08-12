@@ -4,7 +4,8 @@
   "description": "Flatten and deflatten objects. Work with lists 📝",
   "main": "index.js",
   "scripts": {
-    "test": "standard"
+    "pre:test": "standard",
+    "test": "node test/tsil.spec.js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,10 @@
   },
   "homepage": "https://github.com/sospedra/tsil#readme",
   "dependencies": {
+    "lodash": "^4.17.4"
+  },
+  "devDependencies": {
+    "ava": "^0.21.0",
     "standard": "^10.0.3"
   }
 }
