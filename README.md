@@ -46,7 +46,7 @@ const flat = tsil.flatten(characters)
 // ]
 ```
 
-Then we modify whatever we need withour worrying about structures:
+Then we modify whatever we need without worrying about structures:
 
 ```js
 const withChanges = flat.map((node) => {
@@ -67,19 +67,19 @@ tsil.deflatten(withChanges)
     stark: [
       {
         name: 'Jon',
-        age: 23,
+        age: 22,
         isBastard: true
       },
       {
         name: 'Arya',
-        age: 12,
+        age: 17,
         isBastard: false
       }
     ],
     martell: [
       {
         name: 'Oberyn',
-        age: 33,
+        age: 37,
         isBastard: false
       }
     ]
