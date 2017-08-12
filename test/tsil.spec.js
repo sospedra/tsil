@@ -1,12 +1,11 @@
 const test = require('ava')
 const { isEqual } = require('lodash')
 
-const flatten = require('../lib/flatten')
-const deflatten = require('../lib/deflatten')
+const tsil = require('../lib/index')
 const treeTest = require('./tree')
 
-const plain = flatten(treeTest)
-const rebuilt = deflatten(plain)
+const plain = tsil.flatten(treeTest)
+const rebuilt = tsil.deflatten(plain)
 
 test('flatten and deflatten without changes outputs same object', (t) => {
   t.true(isEqual(rebuilt, treeTest))
