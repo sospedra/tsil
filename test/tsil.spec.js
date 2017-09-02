@@ -1,5 +1,5 @@
 const test = require('ava')
-const { clone, isEqual } = require('lodash')
+const { clone, isEqual, isNumber } = require('lodash')
 
 const tsil = require('../lib/index')
 const treeTest = require('./tree')
@@ -13,8 +13,11 @@ test('flatten and deflatten without changes outputs same object', (t) => {
 })
 
 test('modify flatten list and deflatten keeping structure', (t) => {
-  const list = tsil.flatten(treeTest).map((x) => {
-    return Object.assign({}, x, { v: x.v * 10 })
+  const list = tsil.flatten(treeTest).map((node) => {
+    const value = node[tsil.VAL]
+    return Object.assign({}, node, {
+      [tsil.VAL]: Object.assign({}, value, { v: value.v * 10 })
+    })
   })
   const rebuilt = tsil.deflatten(list)
 
@@ -32,4 +35,19 @@ test('modify values does not change original object', (t) => {
 
   t.plan(1)
   t.true(isEqual(controlTester, treeTest))
+})
+
+test('work with primite types', (t) => {
+  const stub = { a: 1, b: { c: 3 } }
+  const result = tsil.deflatten(tsil.flatten(stub))
+  const withChanges = tsil.deflatten(
+    tsil.flatten(stub).map((node) => Object.assign({}, node, {
+      value: isNumber(node.value) ? node.value * 2 : node.value
+    }))
+  )
+
+  t.plan(3)
+  t.true(isEqual(result, stub))
+  t.true(isEqual(stub.a * 2, withChanges.a))
+  t.true(isEqual(stub.b.c, withChanges.b.c))
 })
