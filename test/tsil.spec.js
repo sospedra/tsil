@@ -38,7 +38,7 @@ test('modify values does not change original object', (t) => {
 })
 
 test('work with primite types', (t) => {
-  const stub = { a: 1, b: { c: 3 } }
+  const stub = { a: 1, b: { c: 3 }, d: 'string', e: true }
   const result = tsil.deflatten(tsil.flatten(stub))
   const withChanges = tsil.deflatten(
     tsil.flatten(stub).map((node) => Object.assign({}, node, {
@@ -46,8 +46,10 @@ test('work with primite types', (t) => {
     }))
   )
 
-  t.plan(3)
+  t.plan(5)
   t.true(isEqual(result, stub))
   t.true(isEqual(stub.a * 2, withChanges.a))
   t.true(isEqual(stub.b.c, withChanges.b.c))
+  t.true(isEqual(stub.d, withChanges.d))
+  t.true(isEqual(stub.e, withChanges.e))
 })
