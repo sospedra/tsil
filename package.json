@@ -1,6 +1,6 @@
 {
   "name": "tsil",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "description": "Flatten and deflatten objects. Work with lists 📝",
   "main": "dist/index.js",
   "scripts": {
