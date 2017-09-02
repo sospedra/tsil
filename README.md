@@ -56,6 +56,14 @@ const withChanges = tsil.modify(flat, (node) => {
 })
 ```
 
+(Or a simplified version)
+
+```js
+const withChanges = tsil.merge(flat, (value) => {
+  return !value.name ? {} : { isBastard: node.name === 'Jon' }
+})
+```
+
 And finally we deflatten the resulting list
 
 ```js
@@ -89,10 +97,26 @@ tsil.deflatten(withChanges)
 
 ## API
 
-### `tsil.flatten`
+### `tsil.flatten(String)`
 
 Given any object returns a flatten list of nodes.
 
-### `tsil.deflatten`
+### `tsil.deflatten(TsilArray)`
 
 Given a `tsil` list of nodes returns the original structure.
+
+### `tsil.modify(TsilArray, Function)`
+
+Given a `tsil` list of nodes iterate over all the nodes
+and apply the provided callback.
+
+### `tsil.merge(TsilArray, Function)`
+
+Given a `tsil` list of nodes iterate over all the nodes
+and apply the provided callback merging callback function return
+with the node value.
+
+### `tsil.VAL` (Advanced)
+
+Constant containing the Tsil value key. Use it if you need to
+implement a `.modify` function of your own.

@@ -64,7 +64,10 @@ test('work with primite types', (t) => {
   const result = tsil.deflatten(tsil.flatten(stub))
   const withChanges = tsil.deflatten(
     tsil.flatten(stub).map((node) => Object.assign({}, node, {
-      value: isNumber(node.value) ? node.value * 2 : node.value
+      [tsil.VAL]:
+        isNumber(node[tsil.VAL])
+          ? node[tsil.VAL] * 2
+          : node[tsil.VAL]
     }))
   )
 
