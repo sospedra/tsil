@@ -49,7 +49,7 @@ const flat = tsil.flatten(characters)
 Then we modify whatever we need without worrying about structures:
 
 ```js
-const withChanges = flat.map((node) => {
+const withChanges = tsil.modify(flat, (node) => {
   return !node.name ? node : Object.assign(node, {
     isBastard: node.name === 'Jon'
   })

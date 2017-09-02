@@ -26,6 +26,28 @@ test('modify flatten list and deflatten keeping structure', (t) => {
   t.true(rebuilt.c.c[1].c.c3.v === treeTest.c.c[1].c.c3.v * 10)
 })
 
+test('modify with .modify fn keeps original structure', (t) => {
+  const list = tsil.modify(tsil.flatten(treeTest), (value) => {
+    return Object.assign({}, value, { v: value.v * 10 })
+  })
+  const rebuilt = tsil.deflatten(list)
+
+  t.plan(2)
+  t.true(rebuilt.b.v === treeTest.b.v * 10)
+  t.true(rebuilt.c.c[1].c.c3.v === treeTest.c.c[1].c.c3.v * 10)
+})
+
+test('modify with .merge fn keeps original structure', (t) => {
+  const list = tsil.merge(tsil.flatten(treeTest), (value) => {
+    return { v: value.v * 10 }
+  })
+  const rebuilt = tsil.deflatten(list)
+
+  t.plan(2)
+  t.true(rebuilt.b.v === treeTest.b.v * 10)
+  t.true(rebuilt.c.c[1].c.c3.v === treeTest.c.c[1].c.c3.v * 10)
+})
+
 test('modify values does not change original object', (t) => {
   const controlTester = clone(treeTest)
 
